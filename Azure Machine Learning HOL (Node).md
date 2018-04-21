@@ -53,13 +53,13 @@ The first step in employing Azure Machine Learning is to create an ML workspace 
 
 1. In ML Studio, click **+ NEW** in the lower-left corner. Then start a new experiment by clicking **Blank Experiment**.
 
-    ![Creating a blank experiment](Images/create-blank-experiment.png)
+    ![Creating a blank experiment](images/create-blank-experiment.png)
 
     _Creating a blank experiment_
 
 1. Click the experiment title at the top of the page ("Experiment created on...") and type a new experiment name such as "Digit Recognition."
 
-    ![Renaming the experiment](Images/new-experiment-title.png)
+    ![Renaming the experiment](images/new-experiment-title.png)
 
     _Renaming the experiment_
 
@@ -72,43 +72,43 @@ Azure Machine Learning Studio comes with several sample datasets. Additional dat
 
 1. Click **+ NEW** in the lower-left corner of ML Studio. Then click **DATASET**, followed by **FROM LOCAL FILE**.
 
-    ![Creating a new dataset](Images/new-dataset.png)
+    ![Creating a new dataset](images/new-dataset.png)
 
     _Creating a new dataset_
 
 1. Click the **Browse** button. Navigate to this lab's "resources" subdirectory and select the file named **digit-recognition.csv**. Make sure **Generic CSV File with a header (.csv)** is selected under **SELECT A TYPE FOR THE NEW DATASET**. Optionally enter a friendly name for the dataset in the **ENTER A NAME FOR THE NEW DATASET** box, and then click the check mark in the lower-right corner to begin uploading the dataset.
 
-    ![Uploading the dataset](Images/upload-dataset.png)
+    ![Uploading the dataset](images/upload-dataset.png)
 
     _Uploading the dataset_
 
 1. Wait for the upload to finish. Then go to the modules palette on the left and find the dataset you just uploaded under **Saved Datasets** -> **My Datasets**.
 
-    ![The uploaded dataset](Images/select-dataset.png)
+    ![The uploaded dataset](images/select-dataset.png)
 
     _The uploaded dataset_
 
 1. Drag the dataset from the modules palette and drop it onto the canvas (the gray area to the right).
 
-    ![Adding the dataset to the model](Images/add-dataset.png)
+    ![Adding the dataset to the model](images/add-dataset.png)
 
     _Adding the dataset to the model_
 
 1. To see what this dataset looks like, click the output port (the circle with the "1" in it) at the bottom of the dataset and select **Visualize**.
 
-    ![Visualizing the dataset](Images/visualize-dataset.png)
+    ![Visualizing the dataset](images/visualize-dataset.png)
 
     _Visualizing the dataset_
 
 1. The variables, or "features," in the dataset appear as columns, with each row representing a digit from 0 to 9. The dataset contains 3,823 rows and 65 columns. The first 64 columns contain values from 0 to 16 representing 4x4 blocks of pixels. Each digit represented in the dataset was scanned into a 32x32 array, yielding a total of 1,024 pixels per digit. Each scan is represented in the dataset by 64 values, each representing 16 pixels. 
 
-    ![The Digit Recognition dataset](Images/raw-dataset.png)
+    ![The Digit Recognition dataset](images/raw-dataset.png)
 
     _The Digit Recognition dataset_
 
 1. Scroll all the way to the right until you see the final column — the one named "digit." Each value in this column is the digit that corresponds to the pixel data in the same row. THIS is the target value that your model will predict given values for the other 64 columns.
 
-    ![The target variable](Images/digit-column.png)
+    ![The target variable](images/digit-column.png)
 
     _The target variable_
 
@@ -123,13 +123,13 @@ There are several types of machine-learning models. One of the most common is th
 
 1. At the top of the modules palette, type "metadata" (without quotation marks) into the search box to find the [Edit Metadata](https://msdn.microsoft.com/en-us/library/azure/dn905986.aspx) module.
 
-    ![Finding the Edit Metadata module](Images/find-metadata-editor.png)
+    ![Finding the Edit Metadata module](images/find-metadata-editor.png)
 
     _Finding the Edit Metadata module_
 
 1. Drag the module to the experiment canvas and drop it underneath the dataset. Then connect the output port of the dataset to the input port of the Edit Metadata module by dragging an arrow downward from the output port. Among other things, the Edit Metadata module allows you to specify data types for the columns in the dataset.
 
-    ![Adding an Edit Metadata module](Images/metadata-editor.png)
+    ![Adding an Edit Metadata module](images/metadata-editor.png)
 
     _Adding an Edit Metadata module_
 
@@ -137,25 +137,25 @@ There are several types of machine-learning models. One of the most common is th
 
 1. Click the Edit Metadata module to select it. (When selected, it has a bold blue border.) Then click the **Launch column selector** button in the Properties pane on the right.
 
-    ![Launching the column selector](Images/launch-column-selector-1.png)
+    ![Launching the column selector](images/launch-column-selector-1.png)
 
     _Launching the column selector_
 
 1. Scroll to the bottom of the **AVAILABLE COLUMNS** list and click **digit**. Then click the **>** button to move **digit** into the **SELECTED COLUMNS** list. Recall that **digit** is the value your model will predict. Finish up by clicking the check mark in the lower-right corner of the window.
 
-    ![Selecting the digit column](Images/select-digit-column.png)
+    ![Selecting the digit column](images/select-digit-column.png)
 
     _Selecting the digit column_
 
 1. In the Properties pane, select **Make Categorial** from the drop-down list named **Categorical**. This tells the model that values in the **digit** column should be treated as discrete (as opposed to numeric values, which could take on values such as 7.5 and 8.6).
 
-    ![Making the digit column categorical](Images/make-categorical.png)
+    ![Making the digit column categorical](images/make-categorical.png)
 
     _Making the digit column categorical_
 
 1. Click the **SAVE** button at the bottom of the page to save the experiment.
 
-    ![Saving the experiment](Images/save-button.png)
+    ![Saving the experiment](images/save-button.png)
 
     _Saving the experiment_
 
@@ -163,13 +163,13 @@ There are several types of machine-learning models. One of the most common is th
 
 1. Type "split" (without quotation marks) into the search box at the top of the modules palette. Then drag a [Split Data](https://msdn.microsoft.com/en-us/library/azure/dn905969.aspx) module onto the canvas and connect the output port from the Edit Metadata module to the input port of the Split Data module. The purpose of the Split Data module is to split a dataset into two parts: one for training and one for scoring. It's useful when you don't have separate datasets for training and scoring.
 
-    ![Adding a Split Data module](Images/add-split-data.png)
+    ![Adding a Split Data module](images/add-split-data.png)
 
     _Adding a Split Data module_
 
 1. Make sure the Split Data module is selected. Then go to the Properties pane on the right and set the split to 0.8. You will use 80% of the rows to train the model, and the remaining 20% to score it. Also make sure that the **Randomized split** box is checked. This is particularly important when you are splitting data that is ordered.
 
-    ![Setting the split percentage](Images/setting-split-percentage.png)
+    ![Setting the split percentage](images/setting-split-percentage.png)
 
     _Setting the split percentage_
 
@@ -179,19 +179,19 @@ There are several types of machine-learning models. One of the most common is th
 
 1. Next, type "train model" (without quotation marks) into the search box at the top of the modules palette. Find the [Train Model](https://msdn.microsoft.com/en-us/library/azure/dn906044.aspx) module and drag it onto the canvas. Connect the left output from the Split Data module to the right input of the Train Model module.
 
-    ![Adding a Train Model module](Images/add-train-model.png)
+    ![Adding a Train Model module](images/add-train-model.png)
 
     _Adding a Train Model module_
 
 1. The next step is a crucial one. In it, you will identify for the Train Model module which value you want it to predict. Select the Train Model module, and then click **Launch column selector** in the Properties pane.
 
-    ![Launching the column selector](Images/launch-column-selector-2.png)
+    ![Launching the column selector](images/launch-column-selector-2.png)
 
     _Launching the column selector_
 
 1. Type in "digit" (without quotation marks) to select the **digit** column. This is the value that your model is going to predict. Finish up by clicking the check mark in the lower-right corner.
 
-    ![Specifying the target value](Images/specify-target-value.png)
+    ![Specifying the target value](images/specify-target-value.png)
 
     _Specifying the target value_
 
@@ -201,7 +201,7 @@ There are several types of machine-learning models. One of the most common is th
 
 	Type "multiclass" (without quotation marks) into the search box at the top of the modules palette. Find the [Multiclass Logistic Regression](https://msdn.microsoft.com/en-us/library/azure/dn905853.aspx) module and drag it onto the canvas. Then connect the output from the Multiclass Logistic Regression module to the left input of the Train Model module, as shown below.
 
-    ![Specifying the learning algorithm](Images/add-algorithm.png)
+    ![Specifying the learning algorithm](images/add-algorithm.png)
 
     _Specifying the learning algorithm_
 
@@ -220,7 +220,7 @@ In this exercise, you will score the model you trained in the previous exercise.
 
 1. Add a [Score Model](https://msdn.microsoft.com/en-us/library/azure/dn905995.aspx) module to the canvas. Connect the output of the Train Model module to the Score Model module's left input port. Then connect the right output port of the Split Data module to the right input port of the Score Model module. That connection represents the 20% of the data that was not used for training.
 
-    ![Adding the Score Model module](Images/add-score-model.png)
+    ![Adding the Score Model module](images/add-score-model.png)
 
     _Adding the Score Model module_
 
@@ -230,7 +230,7 @@ In this exercise, you will score the model you trained in the previous exercise.
 
 1. After the run finishes, right-click the output port of the Score Model module and select **Visualize**. Scroll to the right. In the column labeled "digit," you see actual values from the 20% of the dataset passed to the Score Model module. The next ten columns — "Scored Probabilities for Class X" — indicate how the model scored the ten possible outputs (the digits 0 through 9) using the inputs on the left. The higher the number, the greater the likelihood of a match. The final column — "Scored Labels" — indicates which digit the model predicted from the inputs, which is the digit scored with the highest probability. By comparing values in the "digit" column to values under "Scored Labels," you can assess the accuracy of the model. A cursory examination reveals that the model gets it right the vast majority of the time.
 
-    ![The scored dataset](Images/scored-dataset.png)
+    ![The scored dataset](images/scored-dataset.png)
 
     _The scored dataset_
 
@@ -238,7 +238,7 @@ In this exercise, you will score the model you trained in the previous exercise.
 
 1. To evaluate the quality of the results without having to compare hundreds of values manually, add an [Evaluate Model](https://msdn.microsoft.com/en-us/library/azure/dn905915.aspx) module to the experiment canvas. Connect the output port of the Score Model module to the left input port of the output of the Evaluate Model module. (There are two input ports because Evaluate Model can be used to compare two models.)
 
-    ![Adding the Evaluate Model module](Images/add-evaluate-model.png)
+    ![Adding the Evaluate Model module](images/add-evaluate-model.png)
 
     _Adding the Evaluate Model module_
 
@@ -246,7 +246,7 @@ In this exercise, you will score the model you trained in the previous exercise.
 
 1. Click the output port of the Evaluate Model module and select **Visualize** from the menu. From the **Overall accuracy** and **Average accuracy** numbers, you can see that the model performs very well. Given a digitized scan of a handwritten digit, it can correctly identify the digit more than 97% of the time.
 
-    ![The evaluation results](Images/visualize-evaluate-model.png)
+    ![The evaluation results](images/visualize-evaluate-model.png)
 
     _The evaluation results_
 
@@ -263,7 +263,7 @@ Once you have a trained and scored model, you can deploy it as a Web service and
 
 1. At the bottom of the screen, click the **SET UP WEB SERVICE** button and in the ensuing menu, select **Predictive Web Service [Recommended]**. If this option is grayed out, click the **RUN** button and try again.
 
-    ![Creating a predictive Web service](Images/deploy-predict-button.png)
+    ![Creating a predictive Web service](images/deploy-predict-button.png)
 
     _Creating a predictive Web service_
 
@@ -271,13 +271,13 @@ Once you have a trained and scored model, you can deploy it as a Web service and
 
 	> Don't be alarmed thinking your original model is gone. It's still there. You can get to it by clicking the **Training experiment** tab at the top of the page.
 
-    ![The predictive experiment](Images/predictive-experiment.png)
+    ![The predictive experiment](images/predictive-experiment.png)
 
     _The predictive experiment_
 
 1. To create a Web service that you can call to perform predictive analytics, click **RUN** once more. After the run completes, click the **DEPLOY WEB SERVICE** button to deploy the Web service.
 
-    ![Deploying the Web service](Images/deploy-web-service.png)
+    ![Deploying the Web service](images/deploy-web-service.png)
 
     _Deploying the Web service_
  
@@ -285,13 +285,13 @@ Once you have a trained and scored model, you can deploy it as a Web service and
 
 	For convenience, click the button to the right of the API key to copy the key to the clipboard, and then paste it into a text editor so you can easily retrieve it later.
 
-    ![Copying the API key](Images/web-service-dashboard-1.png)
+    ![Copying the API key](images/web-service-dashboard-1.png)
 
     _Copying the API key_
 
 1. Now click **REQUEST/RESPONSE** to see useful information about calling the Web service over HTTPS using [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).
 
-    ![Viewing Request/Response information](Images/web-service-dashboard-2.png)
+    ![Viewing Request/Response information](images/web-service-dashboard-2.png)
 
     _Viewing Request/Response information_
 
@@ -304,7 +304,7 @@ Once you have a trained and scored model, you can deploy it as a Web service and
 
 	Scroll to the bottom of the page and you'll see the sample code. It's available in three languages: C#, Python, and R. Make sure **C#** is selected, and then scroll down until you see the statement that assigns the Web service's URL to client.BaseAddress. Copy this URL to the clipboard and paste it into a text editor so you can retrieve it in the next exercise. You're going to write code similar to this to call the Web service. And to do so, you'll need the URL.
 
-    ![The Web service URL](Images/sample-code.png)
+    ![The Web service URL](images/sample-code.png)
 
     _The Web service URL_
 
@@ -345,7 +345,7 @@ In this exercise, you will write a cross-platform client app using [Node.js](htt
 
 1. In Visual Studio Code, select the **Explorer** command from the **View** menu to make sure the Explorer panel is displayed. Then click **Package.json** to open the file for editing.
 
-    ![Opening package.json](Images/node-open-package-json.png)
+    ![Opening package.json](images/node-open-package-json.png)
 
     _Opening package.json_
     
@@ -400,7 +400,7 @@ In this exercise, you will write a cross-platform client app using [Node.js](htt
 
 1. Place the mouse cursor over the project directory in Visual Studio Code's Explorer panel and click the **New File** button to add a new file to the project. Name the file **tsconfig.json**.
 
-    ![Adding a file to the project](Images/node-new-file.png)
+    ![Adding a file to the project](images/node-new-file.png)
 
     _Adding a file to the project_
 
@@ -764,13 +764,13 @@ The Electron application puts a graphical front end on Web-service calls. You dr
 
 1. Use your mouse to sketch a "7" into the grid, similar to the one shown below. Then click the **Submit** button.
 
-    ![Testing the app](Images/node-mlclient-app-2.png)
+    ![Testing the app](images/node-mlclient-app-2.png)
 
     _Testing the app_
 
 1. In a moment, a message at the bottom of the window will appear telling you what digit you sketched. Is it correct?
 
-    ![Azure ML's response](Images/node-it-works.png)
+    ![Azure ML's response](images/node-it-works.png)
 
     _Azure ML's response_
 

@@ -599,7 +599,7 @@ In this exercise, you will write a cross-platform client app using [Node.js](htt
                 <button (click)="clearGrid()">Clear</button>
             </div>
             <div *ngIf="result">
-                Azure ML says you entered a {{result}}
+                Azure ML identifico el numero {{result}}
             </div>
             <div *ngIf="requestError"><pre>{{requestError | json}}</pre></div>
         `
@@ -714,7 +714,7 @@ In this exercise, you will write a cross-platform client app using [Node.js](htt
     @Component({
         selector: 'my-app',
         template: `
-            <h2>Draw a digit from 0 to 9</h2>
+            <h2>Dibuja un digito de 0 a 9</h2>
             <pixel-grid></pixel-grid>
         `
     })
